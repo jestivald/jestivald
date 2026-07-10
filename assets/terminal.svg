@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 372" role="img"
+     aria-label="Terminal: whoami — student, self-hosted everything, doctore claude; ls ~/projects — node-accelerator, server-bench, jestivald.tech; sudo make coffee — Nice try.">
+  <defs>
+    <clipPath id="win"><rect x="12" y="10" width="836" height="340" rx="12"/></clipPath>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur40" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.03 0"/>
+    </filter>
+  </defs>
+    <style>
+      .f{opacity:0;animation:in .25s ease-out forwards}
+      .c{opacity:0;animation:in .01s steps(1) forwards}
+      @keyframes in{to{opacity:1}}
+      @media (prefers-reduced-motion:reduce){.f,.c{animation:none;opacity:1}}
+    </style>
+
+  <!-- window -->
+  <rect x="12" y="10" width="836" height="340" rx="12" fill="#1B1D24" filter="url(#shadow)"/>
+  <g clip-path="url(#win)">
+    <circle cx="700" cy="80" r="120" fill="#6597E2" opacity="0.08" filter="url(#blur40)"/>
+    <circle cx="170" cy="310" r="100" fill="#8B5CF6" opacity="0.07" filter="url(#blur40)"/>
+    <rect x="12" y="10" width="836" height="36" fill="#20232C"/>
+    <rect x="12" y="46" width="836" height="1" fill="#2A2E3A"/>
+    <rect x="12" y="10" width="836" height="90" fill="url(#glass)"/>
+    <rect x="12" y="10" width="836" height="340" filter="url(#grain)" opacity="0.5"/>
+  </g>
+  <rect x="12.5" y="10.5" width="835" height="339" rx="11.5"
+        fill="none" stroke="#2A2E3A"/>
+
+  <!-- traffic lights + title -->
+  <circle cx="34" cy="28" r="6.5" fill="#FF5F57"/>
+  <circle cx="56" cy="28" r="6.5" fill="#FEBC2E"/>
+  <circle cx="78" cy="28" r="6.5" fill="#28C840"/>
+  <text x="430.0" y="33" font-size="12" fill="#6E7480" text-anchor="middle"
+        font-family="ui-monospace,'SF Mono','JetBrains Mono','Cascadia Code',Menlo,Consolas,'DejaVu Sans Mono',monospace">jestivald — zsh</text>
+
+  <!-- session -->
+  <g font-family="ui-monospace,'SF Mono','JetBrains Mono','Cascadia Code',Menlo,Consolas,'DejaVu Sans Mono',monospace">
+    <text x="40" y="78" font-size="15" class="f" style="animation-delay:0.40s"><tspan fill="#E06C75">jestivald</tspan><tspan fill="#6E7480"> in </tspan><tspan fill="#6597E2">~</tspan><tspan fill="#6597E2"> ❯ </tspan><tspan fill="#C9CED8" class="c" style="animation-delay:0.90s">w</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:0.98s">h</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:1.06s">o</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:1.14s">a</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:1.22s">m</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:1.30s">i</tspan></text>
+    <text x="40" y="106" font-size="15" class="f" style="animation-delay:1.73s"><tspan fill="#C9CED8">student</tspan><tspan fill="#6E7480">  ·  </tspan><tspan fill="#C9CED8">self-hosted everything</tspan><tspan fill="#6E7480">  ·  </tspan><tspan fill="#6597E2">doctore claude</tspan></text>
+    <text x="40" y="148" font-size="15" class="f" style="animation-delay:2.20s"><tspan fill="#E06C75">jestivald</tspan><tspan fill="#6E7480"> in </tspan><tspan fill="#6597E2">~</tspan><tspan fill="#6597E2"> ❯ </tspan><tspan fill="#C9CED8" class="c" style="animation-delay:2.60s">l</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:2.67s">s</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:2.74s"> </tspan><tspan fill="#C9CED8" class="c" style="animation-delay:2.81s">~</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:2.88s">/</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:2.95s">p</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:3.02s">r</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:3.09s">o</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:3.16s">j</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:3.23s">e</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:3.30s">c</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:3.37s">t</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:3.44s">s</tspan></text>
+    <text x="40" y="176" font-size="15" class="f" style="animation-delay:3.86s"><tspan fill="#98C379">node-accelerator</tspan><tspan fill="#E5C07B"> ★123</tspan><tspan fill="#6E7480">   </tspan><tspan fill="#98C379">server-bench</tspan><tspan fill="#6E7480">   </tspan><tspan fill="#98C379">jestivald.tech</tspan><tspan fill="#6E7480">   </tspan><tspan fill="#6E7480">.claude</tspan></text>
+    <text x="40" y="218" font-size="15" class="f" style="animation-delay:4.50s"><tspan fill="#E06C75">jestivald</tspan><tspan fill="#6E7480"> in </tspan><tspan fill="#6597E2">~</tspan><tspan fill="#6597E2"> ❯ </tspan><tspan fill="#C9CED8" class="c" style="animation-delay:4.90s">s</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:4.97s">u</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.04s">d</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.11s">o</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.18s"> </tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.25s">m</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.32s">a</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.39s">k</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.46s">e</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.53s"> </tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.60s">c</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.67s">o</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.74s">f</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.81s">f</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.88s">e</tspan><tspan fill="#C9CED8" class="c" style="animation-delay:5.95s">e</tspan></text>
+    <text x="40" y="246" font-size="15" class="f" style="animation-delay:6.42s"><tspan fill="#E06C75">Nice try.</tspan></text>
+    <text x="40" y="288" font-size="15" class="f" style="animation-delay:7.60s"><tspan fill="#E06C75">jestivald</tspan><tspan fill="#6E7480"> in </tspan><tspan fill="#6597E2">~</tspan><tspan fill="#6597E2"> ❯ </tspan><tspan fill="#6597E2">█</tspan></text>
+    <text x="826" y="338" font-size="11" text-anchor="end" opacity="0.55" class="f" style="animation-delay:8.20s"><tspan fill="#6E7480">// hack the planet</tspan></text>
+  </g>
+</svg>
