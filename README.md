@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="assets/terminal.svg" width="100%" alt="terminal — whoami: student · self-hosted everything · doctore claude / sudo make coffee: Nice try." />
+  <a href="https://jestivald.tech">
+    <img src="assets/terminal.svg" width="100%" alt="terminal — whoami: student · self-hosted everything · doctore claude / sudo make coffee: Nice try." />
+  </a>
 </p>
 
 ### ❯ whoami
