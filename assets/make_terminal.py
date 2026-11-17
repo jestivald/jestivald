@@ -7,32 +7,38 @@ inside GitHub's <img> sandbox. Run with --static to bake the final frame
 
     python3 assets/make_terminal.py            # -> assets/terminal.svg
     python3 assets/make_terminal.py --static out.svg
+
+The look follows jestivald.tech: matte warm graphite, fine grain, a muted
+sage accent. The session mirrors the terminal window on the homepage.
 """
 
 import sys
 from pathlib import Path
 
 # ---------------------------------------------------------------- palette --
-BG      = "#1B1D24"   # graphite window
-BAR     = "#20232C"   # titlebar
-BORDER  = "#2A2E3A"
-TEXT    = "#C9CED8"
-DIM     = "#6E7480"
-INDIGO  = "#6597E2"   # accent / prompt arrow / dir
-RED     = "#E06C75"   # soft red host
-GREEN   = "#98C379"
-YELLOW  = "#E5C07B"
-PURPLE  = "#8B5CF6"   # bokeh only
+BG_TOP  = "#1C1C19"   # window, top of the gradient
+BG_END  = "#131311"   # window, bottom
+BAR     = "#1A1A17"   # titlebar
+BORDER  = "#45443D"
+LINE    = "#2E2D29"   # hairline under the titlebar
+TEXT    = "#F1F0EB"
+SOFT    = "#B9B7B0"   # command output
+DIM     = "#8B897E"   # separators, title, footer
+DOT     = "#3B3A34"   # window buttons
+SAGE    = "#ACC9B4"   # accent / prompt arrow / cursor
+SAND    = "#D8C9A8"   # directories, star
 
 FONT = ("ui-monospace,'SF Mono','JetBrains Mono','Cascadia Code',"
         "Menlo,Consolas,'DejaVu Sans Mono',monospace")
 
-W, H = 860, 372            # viewBox
-WX, WY, WW, WH = 12, 10, 836, 340   # window rect
+STARS = 150                # node-accelerator, snapshot of 2026-11-17
+
+W, H = 860, 400            # viewBox
+WX, WY, WW, WH = 12, 10, 836, 366   # window rect
 FS = 15                    # font size
 X0 = 40                    # text left margin
 
-NBSP = " "
+NBSP = "\u00a0"
 
 
 def esc(s: str) -> str:
@@ -51,8 +57,7 @@ def span(text, fill=TEXT, cls=None, delay=None, extra=""):
 
 
 def prompt_spans():
-    return (span("jestivald", RED) + span(" in ", DIM)
-            + span("~", INDIGO) + span(" ❯ ", INDIGO))
+    return span("❯ ", SAGE)
 
 
 def typed_spans(cmd: str, start: float, per: float):
@@ -62,6 +67,11 @@ def typed_spans(cmd: str, start: float, per: float):
         out.append(span(ch, TEXT, cls="c", delay=t))
         t += per
     return "".join(out), t
+
+
+def dirs(*names):
+    """`ls` output: directory names separated by three spaces."""
+    return span("   ", DIM).join(names)
 
 
 STATIC = "--static" in sys.argv
@@ -79,93 +89,105 @@ def text_line(y, inner, cls="f", delay=0.0, size=FS, anchor=None, x=X0, op=None)
 
 
 # ---------------------------------------------------------------- session --
-y, LH, GAP = 78, 28, 14
+y, LH, GAP = 80, 28, 14
+INDENT = X0 + 18           # output lines sit under the command text
 
 # ❯ whoami
-p = prompt_spans()
 typed, t_end = typed_spans("whoami", 0.90, 0.08)
-text_line(y, p + typed, delay=0.40)
+text_line(y, prompt_spans() + typed, delay=0.40)
 y += LH
-text_line(y, span("student", TEXT) + span("  ·  ", DIM)
-             + span("self-hosted everything", TEXT) + span("  ·  ", DIM)
-             + span("doctore claude", INDIGO),
-          delay=t_end + 0.35)
+text_line(y, span("student", SOFT) + span("  ·  ", DIM)
+             + span("self-hosted everything", SOFT) + span("  ·  ", DIM)
+             + span("doctore claude", SAGE),
+          delay=t_end + 0.35, x=INDENT)
 y += LH + GAP
 
-# ❯ ls ~/projects
-typed, t_end = typed_spans("ls ~/projects", 2.60, 0.07)
-text_line(y, prompt_spans() + typed, delay=2.20)
+# ❯ ls ~/work
+typed, t_end = typed_spans("ls ~/work", 2.50, 0.07)
+text_line(y, prompt_spans() + typed, delay=2.10)
 y += LH
-text_line(y, span("node-accelerator", GREEN) + span(" ★123", YELLOW)
-             + span("   ", DIM) + span("server-bench", GREEN)
-             + span("   ", DIM) + span("jestivald.tech", GREEN)
-             + span("   ", DIM) + span(".claude", DIM),
-          delay=t_end + 0.35)
+text_line(y, dirs(span("node-accelerator/", SAND) + span(f" ★{STARS}", SAGE),
+                  span("server-bench/", SAND), span("vneplena/", SAND),
+                  span("monitoring/", SAND)),
+          delay=t_end + 0.35, x=INDENT)
+y += LH
+text_line(y, dirs(span("infra-billing/", SAND), span("deeeway/", SAND),
+                  span("home-win-mcp/", SAND), span(".claude/", DIM)),
+          delay=t_end + 0.50, x=INDENT)
 y += LH + GAP
 
 # ❯ sudo make coffee
-typed, t_end = typed_spans("sudo make coffee", 4.90, 0.07)
-text_line(y, prompt_spans() + typed, delay=4.50)
+typed, t_end = typed_spans("sudo make coffee", 4.80, 0.07)
+text_line(y, prompt_spans() + typed, delay=4.40)
 y += LH
-text_line(y, span("Nice try.", RED), delay=t_end + 0.40)
+text_line(y, span("Nice try.", SOFT), delay=t_end + 0.40, x=INDENT)
 y += LH + GAP
 
-# final prompt + solid block cursor (non-blinking, like the site)
-text_line(y, prompt_spans() + span("█", INDIGO), delay=7.60)
+# final prompt + solid block cursor (non-blinking)
+text_line(y, prompt_spans() + span("█", SAGE), delay=7.50)
 
 # footer easter egg
-text_line(WY + WH - 12, span("// hack the planet", DIM), delay=8.20,
-          size=11, anchor="end", x=WX + WW - 22, op="0.55")
+text_line(WY + WH - 14, span("// hack the planet", DIM), delay=8.10,
+          size=11, anchor="end", x=WX + WW - 22, op="0.7")
 
 body = "\n    ".join(lines)
 
+# Typed characters use step-start, not steps(1): with an end jump the final value depends on
+# (delay + duration) - delay >= duration, and for most delays that float subtraction comes out a
+# hair short, so Chrome leaves the character at opacity 0 forever.
 css = "" if STATIC else """
     <style>
       .f{opacity:0;animation:in .25s ease-out forwards}
-      .c{opacity:0;animation:in .01s steps(1) forwards}
+      .c{opacity:0;animation:in .01s step-start forwards}
       @keyframes in{to{opacity:1}}
       @media (prefers-reduced-motion:reduce){.f,.c{animation:none;opacity:1}}
     </style>"""
 
 svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" role="img"
-     aria-label="Terminal: whoami — student, self-hosted everything, doctore claude; ls ~/projects — node-accelerator, server-bench, jestivald.tech; sudo make coffee — Nice try.">
+     aria-label="Terminal: whoami — student, self-hosted everything, doctore claude; ls ~/work — node-accelerator, server-bench, vneplena, monitoring, infra-billing, deeeway, home-win-mcp; sudo make coffee — Nice try.">
   <defs>
-    <clipPath id="win"><rect x="{WX}" y="{WY}" width="{WW}" height="{WH}" rx="12"/></clipPath>
+    <clipPath id="win"><rect x="{WX}" y="{WY}" width="{WW}" height="{WH}" rx="14"/></clipPath>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="{BG_TOP}"/>
+      <stop offset="0.62" stop-color="{BG_END}"/>
+    </linearGradient>
     <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.05"/>
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.045"/>
       <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
     </linearGradient>
     <filter id="blur40" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="40"/>
+      <feGaussianBlur stdDeviation="44"/>
     </filter>
-    <filter id="shadow" x="-8%" y="-8%" width="116%" height="120%">
-      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#000000" flood-opacity="0.35"/>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="124%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.45"/>
     </filter>
     <filter id="grain">
       <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
-      <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.03 0"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.035 0"/>
     </filter>
   </defs>{css}
 
   <!-- window -->
-  <rect x="{WX}" y="{WY}" width="{WW}" height="{WH}" rx="12" fill="{BG}" filter="url(#shadow)"/>
+  <rect x="{WX}" y="{WY}" width="{WW}" height="{WH}" rx="14" fill="url(#body)" filter="url(#shadow)"/>
   <g clip-path="url(#win)">
-    <circle cx="700" cy="80" r="120" fill="{INDIGO}" opacity="0.08" filter="url(#blur40)"/>
-    <circle cx="170" cy="310" r="100" fill="{PURPLE}" opacity="0.07" filter="url(#blur40)"/>
-    <rect x="{WX}" y="{WY}" width="{WW}" height="36" fill="{BAR}"/>
-    <rect x="{WX}" y="{WY + 36}" width="{WW}" height="1" fill="{BORDER}"/>
+    <circle cx="700" cy="90" r="130" fill="{SAGE}" opacity="0.09" filter="url(#blur40)"/>
+    <circle cx="150" cy="330" r="110" fill="#EEE1C6" opacity="0.05" filter="url(#blur40)"/>
+    <rect x="{WX}" y="{WY}" width="{WW}" height="38" fill="{BAR}"/>
+    <rect x="{WX}" y="{WY + 38}" width="{WW}" height="1" fill="{LINE}"/>
     <rect x="{WX}" y="{WY}" width="{WW}" height="90" fill="url(#glass)"/>
-    <rect x="{WX}" y="{WY}" width="{WW}" height="{WH}" filter="url(#grain)" opacity="0.5"/>
+    <rect x="{WX}" y="{WY}" width="{WW}" height="{WH}" filter="url(#grain)" opacity="0.55"/>
   </g>
-  <rect x="{WX + 0.5}" y="{WY + 0.5}" width="{WW - 1}" height="{WH - 1}" rx="11.5"
+  <rect x="{WX + 0.5}" y="{WY + 0.5}" width="{WW - 1}" height="{WH - 1}" rx="13.5"
         fill="none" stroke="{BORDER}"/>
 
-  <!-- traffic lights + title -->
-  <circle cx="34" cy="28" r="6.5" fill="#FF5F57"/>
-  <circle cx="56" cy="28" r="6.5" fill="#FEBC2E"/>
-  <circle cx="78" cy="28" r="6.5" fill="#28C840"/>
+  <!-- window buttons + title -->
+  <circle cx="34" cy="29" r="5" fill="{DOT}"/>
+  <circle cx="51" cy="29" r="5" fill="{DOT}"/>
+  <circle cx="68" cy="29" r="5" fill="{DOT}"/>
   <text x="{W / 2}" y="33" font-size="12" fill="{DIM}" text-anchor="middle"
-        font-family="{FONT}">{esc("jestivald — zsh")}</text>
+        font-family="{FONT}">{esc("jestivald@workspace: ~")}</text>
+  <text x="{WX + WW - 20}" y="33" font-size="11" fill="{DIM}" text-anchor="end"
+        font-family="{FONT}">zsh</text>
 
   <!-- session -->
   <g font-family="{FONT}">
